@@ -18,6 +18,13 @@ $articlesCount = $pdo->query('SELECT COUNT(*) AS total FROM articles')->fetch()[
 $projectsCount = $pdo->query('SELECT COUNT(*) AS total FROM projects')->fetch()['total'] ?? 0;
 $videosCount = $pdo->query('SELECT COUNT(*) AS total FROM videos')->fetch()['total'] ?? 0;
 $slidesCount = $pdo->query('SELECT COUNT(*) AS total FROM slides')->fetch()['total'] ?? 0;
+$messagesCount = $pdo->query('SELECT COUNT(*) AS total FROM contact_messages')->fetch()['total'] ?? 0;
+
+$unreadMessagesCount = $pdo->query("
+    SELECT COUNT(*) AS total
+    FROM contact_messages
+    WHERE status = 'unread'
+")->fetch()['total'] ?? 0;
 
 $topPagesStmt = $pdo->query("
     SELECT page_url, COUNT(*) AS total
@@ -65,6 +72,15 @@ $topPages = $topPagesStmt->fetchAll();
         <div class="stat-card">
             <span>Slides</span>
             <strong><?= escape((string) $slidesCount); ?></strong>
+        </div>
+        <div class="stat-card">
+            <span>Mensagens</span>
+            <strong><?= escape((string) $messagesCount); ?></strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Não lidas</span>
+            <strong><?= escape((string) $unreadMessagesCount); ?></strong>
         </div>
     </div>
 

@@ -3,6 +3,13 @@
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/header.php';
 
+$siteName = getSetting($pdo, 'site_name', $lang);
+$heroEyebrow = getSetting($pdo, 'hero_eyebrow', $lang);
+$heroTitle = getSetting($pdo, 'hero_title', $lang);
+$heroDescription = getSetting($pdo, 'hero_description', $lang);
+$aboutTitle = getSetting($pdo, 'about_title', $lang);
+$aboutText = getSetting($pdo, 'about_text', $lang);
+
 $featuredProjectsStmt = $pdo->prepare("
     SELECT
         p.id,
@@ -30,10 +37,10 @@ $featuredProjects = $featuredProjectsStmt->fetchAll();
 <main>
     <section class="hero">
         <div class="hero-content">
-            <p class="eyebrow">Internationally Recognized Architect</p>
-            <h1>Isabella Laurent Architects</h1>
+            <p class="eyebrow"><?= escape($heroEyebrow); ?></p>
+            <h1><?= escape($heroTitle); ?></h1>
             <p>
-                Designing timeless architecture that connects people, culture and place.
+                <?= escape($heroDescription); ?>
             </p>
 
             <div class="hero-actions">
@@ -82,11 +89,10 @@ $featuredProjects = $featuredProjectsStmt->fetchAll();
         <div class="about-image"></div>
 
         <div class="about-content">
-            <span>About the Architect</span>
-            <h2>Isabella Laurent</h2>
+            <span><?= escape($aboutTitle); ?></span>
+            <h2><?= escape($siteName); ?></h2>
             <p>
-                Isabella Laurent is an award-winning architect known for her refined approach
-                to modern architecture and deep commitment to timeless design.
+                <?= escape($aboutText); ?>
             </p>
         </div>
     </section>

@@ -58,3 +58,51 @@ function uploadFile(array $file, string $targetDir): ?string
 
     return str_replace(__DIR__ . '/../', '', $destination);
 }
+
+function uploadDocument(array $file, string $targetDir): ?string
+{
+    if (!isset($file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+
+    $allowedExtensions = ['pdf', 'ppt', 'pptx'];
+    $originalName = $file['name'];
+    $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+
+    if (!in_array($extension, $allowedExtensions, true)) {
+        return null;
+    }
+
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0775, true);
+    }
+
+    $filename = uniqid('document_', true) . '.' . $extension;
+    $destination = rtrim($targetDir, '/') . '/' . $filename;
+
+    if (!move_uploaded_file($file['tmp_name'], $destination)) {
+        return null;
+    }
+
+    return str_replace(__DIR__ . '/../', '', $destination);
+}
+
+function getSetting(PDO $pdo, string $key, string $language = 'pt'): string
+{
+    $stmt = $pdo->prepare("
+        SELECT setting_value
+        FROM site_settings
+        WHERE setting_key = :setting_key
+          AND language = :language
+        LIMIT 1
+    ");
+
+    $stmt->execute([
+        'setting_key' => $key,
+        'language' => $language,
+    ]);
+
+    $setting = $stmt->fetch();
+
+    return $setting['setting_value'] ?? '';
+}

@@ -296,3 +296,78 @@ a {
     line-height: 1.8;
     font-size: 17px;
 }
+
+.contact-section {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 48px;
+    padding: 64px;
+}
+
+.contact-info,
+.contact-form-box {
+    background: white;
+    border: 1px solid #ded8ce;
+    padding: 32px;
+}
+
+.contact-info h2 {
+    margin-top: 0;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.contact-info p {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.contact-info a {
+    color: #9b7d5b;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 12px;
+    border: 1px solid #ccc4b8;
+    background: #fafafa;
+    font-family: Arial, sans-serif;
+}
+
+.contact-form input {
+    height: 44px;
+}
+
+.contact-form textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.public-alert-success {
+    padding: 14px;
+    margin-bottom: 18px;
+    background: #ecfff1;
+    border: 1px solid #99d8a8;
+    color: #17672d;
+    font-family: Arial, sans-serif;
+}
+
+.public-alert-error {
+    padding: 14px;
+    margin-bottom: 18px;
+    background: #ffecec;
+    border: 1px solid #e2a2a2;
+    color: #9b1c1c;
+    font-family: Arial, sans-serif;
+}
